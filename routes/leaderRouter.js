@@ -9,14 +9,14 @@ leaderRouter.use(bodyParser.json());
 
 leaderRouter.route('/')
 .get(function (req, res, next) {
-    Leaders.find({}, function (err, dish) {
+    Leaders.find({}, function (err, leader) {
         if (err) throw err;
-        res.json(dish);
+        res.json(leader);
     });
 })
 
 .post(function (req, res, next) {
-    Leaders.create(req.body, function (err, dish) {
+    Leaders.create(req.body, function (err, leader) {
         if (err) throw err;
         console.log('Leader created!');
         var id = Leader._id;
@@ -35,7 +35,7 @@ leaderRouter.route('/')
     });
 });
 
-dishRouter.route('/:dishId')
+leaderRouter.route('/:leaderId')
 .get(function (req, res, next) {
     Leaders.findById(req.params.LeaderId, function (err, leader) {
         if (err) throw err;
