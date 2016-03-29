@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
     assert = require('assert');
 
+var cookieParser = require('cookie-parser');
+
 var Dishes = require('./models/promotions');
 
 // Connection URL
