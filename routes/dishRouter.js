@@ -9,7 +9,7 @@ var dishRouter = express.Router();
 dishRouter.use(bodyParser.json());
 
 dishRouter.route('/')
-.get(Verify.verifyOrdinaryUser, function (req, res, next) {
+.get(Verify.verifyAdmin, function (req, res, next) {
     Dishes.find({}, function (err, dish) {
         if (err) throw err;
         res.json(dish);
