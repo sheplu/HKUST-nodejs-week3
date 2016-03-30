@@ -5,8 +5,18 @@ var User = require('../models/user');
 var Verify = require('./verify');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/', Verify.verifyAdmin, function(req, res, next) {
+  console.log(req.decoded);
+  if(req.decoded._doc.admin) {
+    User.find({}, function (err, users) {
+        if (err) throw err;
+        res.json(users);
+    });
+  }
+  else {
+    return res.status(403).json({status: 'You are not authorized to perform this operation!'});
+  }
+
 });
 
 router.post('/register', function(req, res) {
