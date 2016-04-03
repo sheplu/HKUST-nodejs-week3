@@ -6,7 +6,6 @@ var Verify = require('./verify');
 
 /* GET users listing. */
 router.get('/', Verify.verifyAdmin, function(req, res, next) {
-  console.log(req.decoded);
   if(req.decoded._doc.admin) {
     User.find({}, function (err, users) {
         if (err) throw err;
