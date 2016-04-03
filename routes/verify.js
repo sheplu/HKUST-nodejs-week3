@@ -30,7 +30,7 @@ exports.verifyOrdinaryUser = function (req, res, next) {
         // if there is no token
         // return an error
         var err = new Error('No token provided!');
-        err.status = 403;
+        err.status = 401;
         return next(err);
     }
 };
@@ -50,6 +50,11 @@ exports.verifyAdmin = function (req, res, next) {
             } else {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded
+                if(!req.decoded._doc.admin) {
+                  var err = new Error('You are not authorized to perform this operation!');
+                  err.status = 403;
+                  return next(err);
+                }
                 //console.log(decoded._doc.admin);
                 next();
             }
@@ -58,7 +63,7 @@ exports.verifyAdmin = function (req, res, next) {
         // if there is no token
         // return an error
         var err = new Error('No token provided!');
-        err.status = 403;
+        err.status = 401;
         return next(err);
     }
 };
